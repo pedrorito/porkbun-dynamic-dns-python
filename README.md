@@ -31,13 +31,6 @@ Detect my external IP address and create/update a corresponding wildcard DNS rec
 
 Please note that wildcard records do not apply to the root domain and you'll need to create a root domain record in addition to the wildcard record if you wish to match all incoming DNS requests for the domain.
 
-#### Manual IP Address override
-Create/update a corresponding wildcard DNS record on the root domain, but instead of detecting the IP address, use this manually-specified IP address instead.
-
-    python porkbun-ddns.py /path/to/config.json example.com -i 10.0.0.1
-
-Note: this method bypasses the external IP address detector. This might be useful if your network is routing traffic in a complicated way on multiple public IP addresses. If so, you can use this method to force the IP address of your choice.
-
 ## Next Steps 
 Congrats, you've installed and configured the Dynamic DNS client. To start using it in something akin to a production environment, you'll need to take further steps to ensure the client runs in a consistent fashion.
 

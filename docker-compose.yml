@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  porkbun-dynamic-dns-python:
+    build: .
+    env_file:
+      - variables.env
+    restart: always
+    image: porkbun-dynamic-dns-python
+    container_name: porkbun-dynamic-dns-python
