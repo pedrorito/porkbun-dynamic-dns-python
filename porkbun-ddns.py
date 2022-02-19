@@ -3,11 +3,15 @@ import requests
 import os
 import time
 
+apiConfig = json.load(open("config.json")) #load the config file into a variable
+rootDomain = os.environ.get('DOMAIN')
+subDomain = os.environ.get('SUBDOMAIN')
+interval = 15
+
 def getRecords(domain): #grab all the records so we know which ones to delete to make room for our record. Also checks to make sure we've got the right domain
 	allRecords=json.loads(requests.post(apiConfig["endpoint"] + '/dns/retrieve/' + domain, data = json.dumps(apiConfig)).text)
 	if allRecords["status"]=="ERROR":
 		print('Error getting domain. Check to make sure you specified the correct domain, and that API access has been switched on for this domain.');
-		sys.exit();
 	return(allRecords)
 	
 def getMyIP():
@@ -34,9 +38,6 @@ def createRecord():
 	return(create)
 
 while True:
-	apiConfig = json.load(open("config.json")) #load the config file into a variable
-	rootDomain = os.environ.get('DOMAIN')
-	subDomain = os.environ.get('SUBDOMAIN')
 	fqdn = subDomain + "." + rootDomain
 
 	recordIP=checkRecord()
@@ -50,6 +51,5 @@ while True:
 		deleteRecord()
 		print(createRecord()["status"])
 
-	interval = 15
 	print("Next check in " + str(interval) + " minutes")
 	time.sleep(interval*60)
